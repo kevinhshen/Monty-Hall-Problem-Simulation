@@ -1,6 +1,6 @@
 import random
 numLoop=0
-pickAgain=True
+switch=False
 
 while True:
     try:
@@ -15,8 +15,16 @@ while True:
     except ValueError:
         print("Invalid input. Please enter an integer.")
         
+while True:
+    switch = input("Would you like to switch? (Y/N): ").strip().lower()
 
-     
+    if switch[0] == "y":
+        switch = True
+        break
+    else:
+        switch=False
+        break
+        
 winCounter=0
 loseCounter=0
 for i in range(numLoop):
@@ -40,17 +48,21 @@ for i in range(numLoop):
     playerChoices.remove(hostPick)
     print("Host revealed nothing behind door #"+str(hostPick+1))
     
-    if pickAgain:
+    if switch:
         print("Player decided to pick again")
         playerPick=random.choice(playerChoices)
-        print("Player chose door#"+str(playerPick))
+        print("Player chose door#"+str(playerPick+1))
     else:
         print("Player decided not to pick again")
     
     if(doors[playerPick]=="car"):
         winCounter+=1
+        print("Win")
     else:
         loseCounter+=1
+        print("Lose")
+    
+    print("")
    
 print(f"Player won {winCounter} times")
 print(f"Player lost {loseCounter} times")
